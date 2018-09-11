@@ -19473,7 +19473,7 @@ $packages["main"] = (function() {
 		var _r, _r$1, _r$2, _r$3, h, length, mod, salt, service, $s, $r;
 		/* */ $s = 0; var $f, $c = false; if (this !== undefined && this.$blk !== undefined) { $f = this; $c = true; _r = $f._r; _r$1 = $f._r$1; _r$2 = $f._r$2; _r$3 = $f._r$3; h = $f.h; length = $f.length; mod = $f.mod; salt = $f.salt; service = $f.service; $s = $f.$s; $r = $f.$r; } s: while (true) { switch ($s) { case 0:
 		h = sha512.New();
-		_r = fmt.Sprintf("%s%s%s", new sliceType$1([new $String(service), new $String(mod), new $String(salt)])); /* */ $s = 1; case 1: if($c) { $c = false; _r = _r.$blk(); } if (_r && _r.$blk !== undefined) { break s; }
+		_r = fmt.Sprintf("%s%s%s", new sliceType$1([new $String(salt), new $String(mod), new $String(service)])); /* */ $s = 1; case 1: if($c) { $c = false; _r = _r.$blk(); } if (_r && _r.$blk !== undefined) { break s; }
 		_r$1 = h.Write((new sliceType($stringToBytes(_r)))); /* */ $s = 2; case 2: if($c) { $c = false; _r$1 = _r$1.$blk(); } if (_r$1 && _r$1.$blk !== undefined) { break s; }
 		_r$1;
 		_r$2 = h.Sum(sliceType.nil); /* */ $s = 3; case 3: if($c) { $c = false; _r$2 = _r$2.$blk(); } if (_r$2 && _r$2.$blk !== undefined) { break s; }
