@@ -11,9 +11,10 @@ import (
 )
 
 func main() {
-	pass := flag.String("pass", "", "a string")
-	service := flag.String("service", "", "a string")
-	modifier := flag.String("modifier", "", "a string")
+	salt := flag.String("salt", "", "salt for generating pass")
+	service := flag.String("service", "", "aservice for which pass is being created")
+	modifier := flag.String("modifier", "", "Specific modifier about pass or service")
+	length := flag.Int("length", 32, "Pass length")
 
 	flag.Parse()
 
@@ -22,19 +23,19 @@ func main() {
 		return
 	}
 
-	if *pass == "" {
+	if *salt == "" {
 		fmt.Println("Your password: ")
 		bytes, _ := terminal.ReadPassword(int(syscall.Stdin))
-		*pass = string(bytes)
+		*salt = string(bytes)
 	}
 
-	sha512Hash := generateHash(*service, *modifier, *pass)
+	sha512Hash := generateHash(*service, *modifier, *salt, *length)
 
 	fmt.Printf("Generated password for %s@%s: %s\n", *modifier, *service, sha512Hash)
 }
 
-func generateHash(service, mod, pass string) string {
+func generateHash(service, mod, salt string, length int) string {
 	h := sha512.New()
-	h.Write([]byte(fmt.Sprintf("%s%s%s", service, mod, pass)))
-	return hex.EncodeToString(h.Sum(nil))[:32]
+	h.Write([]byte(fmt.Sprintf("%s%s%s", service, mod, salt)))
+	return hex.EncodeToString(h.Sum(nil))[:length]
 }
